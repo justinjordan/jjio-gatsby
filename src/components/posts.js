@@ -1,8 +1,11 @@
 import React from 'react'
 import { graphql, StaticQuery, Link } from 'gatsby'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import dayjs from 'dayjs'
 
 const Posts = () => (
   <StaticQuery
@@ -14,8 +17,21 @@ const Posts = () => (
               id
               title
               path
+              date
+              author {
+                name
+              }
               yoast {
                 metadesc
+              }
+              featured_media {
+                localFile {
+                  childImageSharp {
+                    original {
+                      src
+                    }
+                  }
+                }
               }
             }
           }
@@ -26,34 +42,49 @@ const Posts = () => (
       const cards = []
 
       for (let edge of data.allWordpressPost.edges) {
-        // cards.push(
-        //   <article key={edge.node.id}>
-        //     <h1><Link to={edge.node.path} dangerouslySetInnerHTML={{ __html: edge.node.title }} /></h1>
-        //     <p dangerouslySetInnerHTML={{ __html: edge.node.yoast.metadesc }}></p>
-        //   </article>
-        // )
+        const post = edge.node
+        const featuredImage = post.featured_media.localFile.childImageSharp.original.src
+
         cards.push(
-          <Card key={edge.node.id}>
-            <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="h2"
-            >
-              <Link to={edge.node.path} dangerouslySetInnerHTML={{ __html: edge.node.title }} />
-            </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              dangerouslySetInnerHTML={{ __html: edge.node.yoast.metadesc }}
-            />
-            </CardContent>
-          </Card>
+          <Grid item sm={12} lg={6} key={post.id}>
+            <Card>
+              <Link to={post.path} style={{
+                color: '#000000',
+                textDecoration: 'none',
+              }}>
+                <CardMedia
+                  component="img"
+                  height="400"
+                  image={featuredImage}
+                  title=""
+                  alt=""
+                />
+                <CardContent>
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    dangerouslySetInnerHTML={{ __html: post.title }}
+                  />
+                  <Typography
+                    variant="subtitle1"
+                    color="textSecondary"
+                  >
+                    By {post.author.name} on {dayjs(post.date).format('MMMM D, YYYY')}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}
+                  />
+                </CardContent>
+              </Link>
+            </Card>
+          </Grid>
         )
       }
 
-      return cards
+      return <Grid container spacing={3}>{cards}</Grid>
     }}
   />
 )
