@@ -5,30 +5,41 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/styles'
 import dayjs from 'dayjs'
 
-const Posts = () => (
-  <StaticQuery
-    query={graphql`
-      query {
-        allWordpressPost {
-          edges {
-            node {
-              id
-              title
-              path
-              date
-              author {
-                name
-              }
-              yoast {
-                metadesc
-              }
-              featured_media {
-                localFile {
-                  childImageSharp {
-                    original {
-                      src
+const useStyles = makeStyles({
+  container: {
+    margin: '3rem 0',
+  },
+})
+
+const Posts = () => {
+  const classes = useStyles()
+
+  return (
+    <StaticQuery
+      query={graphql`
+        query {
+          allWordpressPost {
+            edges {
+              node {
+                id
+                title
+                path
+                date
+                author {
+                  name
+                }
+                yoast {
+                  metadesc
+                }
+                featured_media {
+                  localFile {
+                    childImageSharp {
+                      original {
+                        src
+                      }
                     }
                   }
                 }
@@ -36,57 +47,66 @@ const Posts = () => (
             }
           }
         }
-      }
-    `}
-    render={data => {
-      const cards = []
+      `}
+      render={data => {
+        const cards = []
 
-      for (let edge of data.allWordpressPost.edges) {
-        const post = edge.node
-        const featuredImage = post.featured_media.localFile.childImageSharp.original.src
+        for (let edge of data.allWordpressPost.edges) {
+          const post = edge.node
+          let featuredImage = ''
+          if (post.featured_media) {
+            featuredImage = (
+              <CardMedia
+                component="img"
+                height="400"
+                image={post.featured_media.localFile.childImageSharp.original.src}
+                title=""
+                alt=""
+              />
+            )
+          }
 
-        cards.push(
-          <Grid item sm={12} lg={6} key={post.id}>
-            <Card>
-              <Link to={post.path} style={{
-                color: '#000000',
-                textDecoration: 'none',
-              }}>
-                <CardMedia
-                  component="img"
-                  height="400"
-                  image={featuredImage}
-                  title=""
-                  alt=""
-                />
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    dangerouslySetInnerHTML={{ __html: post.title }}
-                  />
-                  <Typography
-                    variant="subtitle1"
-                    color="textSecondary"
-                  >
-                    By {post.author.name} on {dayjs(post.date).format('MMMM D, YYYY')}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}
-                  />
-                </CardContent>
-              </Link>
-            </Card>
-          </Grid>
+          cards.push(
+            <Grid item sm={12} lg={6} key={post.id}>
+              <Card>
+                <Link to={post.path} style={{
+                  color: '#000000',
+                  textDecoration: 'none',
+                }}>
+                  {featuredImage}
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                      dangerouslySetInnerHTML={{ __html: post.title }}
+                    />
+                    <Typography
+                      variant="subtitle1"
+                      color="textSecondary"
+                    >
+                      By {post.author.name} on {dayjs(post.date).format('MMMM D, YYYY')}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      component="p"
+                      dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}
+                    />
+                  </CardContent>
+                </Link>
+              </Card>
+            </Grid>
+          )
+        }
+
+        return (
+          <div className={classes.container}>
+            <Grid container spacing={3}>{cards}</Grid>
+          </div>
         )
-      }
-
-      return <Grid container spacing={3}>{cards}</Grid>
-    }}
-  />
-)
+      }}
+    />
+  )
+}
 
 export default Posts

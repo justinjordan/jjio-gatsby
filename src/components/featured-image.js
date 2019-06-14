@@ -9,7 +9,7 @@ const FeaturedImage = ({ src }) => (
     backgroundSize: `cover`,
     backgroundPosition: `center`,
     backgroundRepeat: `no-repeat`,
-  }}></div>
+  }}/>
 )
 
 export default FeaturedImage

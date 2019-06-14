@@ -31,10 +31,7 @@ const Layout = ({ children }) => (
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Header siteTitle={data.site.siteMetadata.title}/>
-        <Container maxWidth="lg" style={{
-          marginTop: '3rem',
-          marginBottom: '3rem',
-        }}>
+        <Container maxWidth="lg">
           <main>{children}</main>
           <footer>
           </footer>

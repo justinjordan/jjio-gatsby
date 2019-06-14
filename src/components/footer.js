@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 
 import ContactForm from './contact-form'
+import Social from './social'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,6 +46,7 @@ const Footer = () => {
               &copy; Copyright by Justin Jordan 2019
             </Grid>
             <Grid item sm={12} lg={6}>
+              <Social/>
             </Grid>
           </Grid>
         </Container>

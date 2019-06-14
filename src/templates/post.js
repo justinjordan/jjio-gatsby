@@ -2,14 +2,23 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import entities from 'entities'
 import Grid from '@material-ui/core/Grid'
+// import Typography from '@material-ui/core/Typography'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import FeaturedImage from "../components/featured-image"
 
+import '../styles/post.scss'
+
 const Post = ({ data }) => {
   const { wordpressPost: post } = data
-  const featuredImage = post.featured_media.localFile.childImageSharp.original.src
+
+  let featuredImage = ''
+  if (post.featured_media) {
+    featuredImage = (
+      <FeaturedImage src={post.featured_media.localFile.childImageSharp.original.src}/>
+    )
+  }
   
   return (
     <Layout>
@@ -24,7 +33,7 @@ const Post = ({ data }) => {
             <h2 dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}></h2>
           </Grid>
           <Grid item sm={6}>
-            <FeaturedImage src={featuredImage} />
+            {featuredImage}
           </Grid>
         </Grid>
       </header>
