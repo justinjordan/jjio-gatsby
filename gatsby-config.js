@@ -46,7 +46,7 @@ module.exports = {
         baseUrl: `cms.justinjordan.io`,
         protocol: `https`,
         hostingWPCOM: false,
-        useACF: false,
+        useACF: true,
       },
     },
     {
