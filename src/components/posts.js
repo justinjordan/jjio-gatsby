@@ -53,6 +53,7 @@ const Posts = () => {
 
         for (let edge of data.allWordpressPost.edges) {
           const post = edge.node
+          const prettyDate = dayjs(post.date).format('MMMM D, YYYY')
           let featuredImage = ''
           if (post.featured_media) {
             featuredImage = (
@@ -84,8 +85,9 @@ const Posts = () => {
                     <Typography
                       variant="subtitle1"
                       color="textSecondary"
+                      component="address"
                     >
-                      By {post.author.name} on {dayjs(post.date).format('MMMM D, YYYY')}
+                      By <span rel="author">{post.author.name}</span> on <time datetime={post.date}>{prettyDate}</time>
                     </Typography>
                     <Typography
                       variant="body1"

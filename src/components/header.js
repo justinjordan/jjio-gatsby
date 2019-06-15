@@ -20,6 +20,7 @@ const Header = ({ siteTitle }) => (
                 textDecoration: `none`,
                 fontSize: '2.1rem',
                 fontFamily: 'Pacifico, cursive',
+                fontWeight: 400,
                 color: '#000',
               }}
             >{siteTitle}</Link>
