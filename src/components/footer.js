@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
   },
   row1: {
-    paddingBottom: '2rem',
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(6),
   },
   row2: {
     backgroundColor: theme.palette.primary.dark,

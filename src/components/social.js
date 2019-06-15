@@ -5,18 +5,15 @@ import { makeStyles } from '@material-ui/styles'
 
 const iconSize = "2x"
 
-const useStyles = makeStyles(theme => {
-  console.log(theme)
-  return {
-    link: {
-      marginLeft: '18px',
-      color: 'white',
-      '&:hover': {
-        color: theme.palette.secondary.main,
-      },
+const useStyles = makeStyles(theme => ({
+  link: {
+    marginLeft: '18px',
+    color: 'white',
+    '&:hover': {
+      color: theme.palette.secondary.main,
     },
-  }
-})
+  },
+}))
 
 const Social = () => {
   const classes = useStyles()

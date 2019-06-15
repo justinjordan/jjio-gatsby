@@ -3,30 +3,44 @@ import { graphql } from 'gatsby'
 import entities from 'entities'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/styles'
+import Typography from '@material-ui/core/Typography'
 import dayjs from 'dayjs'
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import FeaturedImage from "../components/featured-image"
-
-import '../styles/post.scss'
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+import FeaturedImage from '../components/featured-image'
+import WordpressContent from '../components/wordpress-content'
 
 const useStyles = makeStyles(theme => ({
-  content: {
-    marginBottom: '3rem',
+  header: {
+    marginBottom: '4rem',
+  },
+  title: {
+    margin: '1.8rem 0 1rem 0',
+    fontWeight: 400,
+    lineHeight: '100%',
+  },
+  author: {
+    fontSize: '1.2rem',
+  },
+  description: {
+    fontSize: '1.8rem',
+    fontWeight: 300,
+    fontFamily: 'Open Sans, sans-serif',
+    lineHeight: '120%',
+  },
+  featuredImage: {
+    width: '100%',
+    height: '50vh',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
   },
 }))
 
 const Post = ({ data }) => {
   const { wordpressPost: post } = data
   const classes = useStyles()
-
-  let featuredImage = ''
-  if (post.featured_media) {
-    featuredImage = (
-      <FeaturedImage src={post.featured_media.localFile.childImageSharp.original.src}/>
-    )
-  }
 
   const prettyDate = dayjs(post.date).format('MMMM D, YYYY')
   
@@ -37,21 +51,27 @@ const Post = ({ data }) => {
         description={post.yoast.metadesc}
       />
       <article>
-        <header>
+        <header className={classes.header}>
           <Grid container spacing={3}>
             <Grid item sm={6}>
-              <h1 dangerouslySetInnerHTML={{ __html: post.title }}></h1>
-              <address class="header__author">
-                Posted by <span rel="author">{post.author.name}</span> on <time datetime={post.date}>{prettyDate}</time>
+              <Typography
+                variant="h1"
+                className={classes.title}
+                dangerouslySetInnerHTML={{ __html: post.title }}
+              />
+              <address className={classes.author}>
+                Posted by <span rel="author">{post.author.name}</span> on <time dateTime={post.date}>{prettyDate}</time>
               </address>
-              <p className="header__description" dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}></p>
+              <p className={classes.description} dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}></p>
             </Grid>
             <Grid item sm={6}>
-              {featuredImage}
+              {!post.featured_media ? '' : (
+                <FeaturedImage className={classes.featuredImage} src={post.featured_media.localFile.childImageSharp.original.src} />
+              )}
             </Grid>
           </Grid>
         </header>
-        <div className={classes.content} dangerouslySetInnerHTML={{ __html: post.content }}></div>
+        <WordpressContent content={post.content} />
       </article>
     </Layout>
   )

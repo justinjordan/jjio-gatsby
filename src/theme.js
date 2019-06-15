@@ -11,42 +11,42 @@ export default createMuiTheme({
   },
   typography: {
     h1: {
-      fontSize: '3.0em',
+      fontSize: '3.0rem',
       fontFamily: [
         'Open Sans',
         'sans-serif',
       ],
     },
     h2: {
-      fontSize: '2.8em',
+      fontSize: '2.8rem',
       fontFamily: [
         'Open Sans',
         'sans-serif',
       ],
     },
     h3: {
-      fontSize: '2.4em',
+      fontSize: '2.4rem',
       fontFamily: [
         'Open Sans',
         'sans-serif',
       ],
     },
     h4: {
-      fontSize: '2.0em',
+      fontSize: '2.0rem',
       fontFamily: [
         'Open Sans',
         'sans-serif',
       ],
     },
     h5: {
-      fontSize: '1.8em',
+      fontSize: '1.8rem',
       fontFamily: [
         'Open Sans',
         'sans-serif',
       ],
     },
     h6: {
-      fontSize: '1.6em',
+      fontSize: '1.6rem',
       fontFamily: [
         'Open Sans',
         'sans-serif',

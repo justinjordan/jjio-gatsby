@@ -17,6 +17,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             id
             path
+            slug
             status
             template
           }
@@ -27,6 +28,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             id
             path
+            slug
             status
             template
             format
@@ -46,6 +48,10 @@ exports.createPages = async ({ graphql, actions }) => {
   const postTemplate = path.resolve(`./src/templates/post.js`)
 
   allWordpressPage.edges.forEach(edge => {
+    if (edge.node.slug === 'gatsby-dummy-page') {
+      return
+    }
+
     createPage({
       path: edge.node.path,
       component: slash(pageTemplate),
@@ -56,6 +62,10 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   allWordpressPost.edges.forEach(edge => {
+    if (edge.node.slug === 'gatsby-dummy-post') {
+      return
+    }
+
     createPage({
       path: edge.node.path,
       component: slash(postTemplate),
