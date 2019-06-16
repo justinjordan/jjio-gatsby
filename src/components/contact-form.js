@@ -24,6 +24,11 @@ const ContactForm = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
+  const updateField = event => {
+    const el = event.target
+    form[el.name] = el.value
+  }
+
   const sendMessage = async () => {
     try {
       setSending(true)
@@ -59,6 +64,7 @@ const ContactForm = () => {
           <TextField
             label="Name"
             name="name"
+            onChange={updateField}
             fullWidth
           />
         </Grid>
@@ -66,6 +72,7 @@ const ContactForm = () => {
           <TextField
             label="Email"
             name="email"
+            onChange={updateField}
             fullWidth
           />
         </Grid>
@@ -73,6 +80,7 @@ const ContactForm = () => {
           <TextField
             label="Message"
             name="message"
+            onChange={updateField}
             multiline
             fullWidth
           />
