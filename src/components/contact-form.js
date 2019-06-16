@@ -28,7 +28,7 @@ const ContactForm = () => {
     try {
       setSending(true)
 
-      const response = await axios.post('https://api.justinjordan.io/contact-form', form)
+      const response = await axios.post(`${process.env.API_DOMAIN}/send-mail`, form)
 
       if (response.status !== 200) {
         throw new Error(response.data.error)
