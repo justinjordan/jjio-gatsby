@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `JustinJordan.io`,
@@ -43,7 +47,7 @@ module.exports = {
     {
       resolve: `gatsby-source-wordpress`,
       options: {
-        baseUrl: `cms.justinjordan.io`,
+        baseUrl: `${process.env.WORDPRESS_DOMAIN}`,
         protocol: `https`,
         hostingWPCOM: false,
         useACF: true,
