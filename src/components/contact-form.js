@@ -3,97 +3,159 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { makeStyles } from '@material-ui/styles'
 import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
-  input: {
-    //
+  formContainer: {
+    position: 'relative',
+    minHeight: '300px',
+  },
+  center: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
   },
 }))
 
 const ContactForm = () => {
   const classes = useStyles()
 
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    message: '',
+  const [nameField, setNameField] = useState({
+    value: '',
+    error: null,
+  })
+  const [emailField, setEmailField] = useState({
+    value: '',
+    error: null,
+  })
+  const [messageField, setMessageField] = useState({
+    value: '',
+    error: null,
   })
   const [sending, setSending] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [error, setError] = useState('')
 
-  const updateField = event => {
-    const el = event.target
-    form[el.name] = el.value
+  const getters = {
+    name: nameField,
+    email: emailField,
+    message: messageField,
+  }
+  const setters = {
+    name: setNameField,
+    email: setEmailField,
+    message: setMessageField,
   }
 
-  const sendMessage = async () => {
-    try {
-      setSending(true)
+  const onChangeField = event => {
+    const el = event.target
 
-      const response = await axios.post(`${process.env.API_DOMAIN}/send-mail`, form)
-
-      if (response.status !== 200) {
-        throw new Error(response.data.error)
-      }
-
-      setSuccess(true)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setSending(false)
+    if (typeof setters[el.name] === 'function') {
+      setters[el.name]({
+        value: el.value,
+        error: null,
+      })
     }
   }
 
-  return success ? (
-    <div>Message sent!</div>
-  ) : sending ? (
-    <div>Sending...</div>
-  ) : (
-    <form onSubmit={sendMessage}>
-      <Typography variant="h5">Get in Touch</Typography>
-      <Grid container spacing={3}>
-        {error ? (
-          <Grid item xs={12}>
-            <Typography variant="caption">{error}</Typography>
+  const sendMessage = async () => {
+    const startTime = new Date().getTime()
+
+    try {
+      setSending(true)
+
+      const response = await axios.post(`${process.env.API_DOMAIN}/send-mail`, {
+        name: nameField.value,
+        email: emailField.value,
+        message: messageField.value,
+      })
+
+      setSuccess(true)
+    } catch (err) {
+      const errors = err.response.data.errors
+
+      if (errors) {
+        for (let key in errors) {
+          setters[key]({
+            value: getters[key].value,
+            error: errors[key].pop(),
+          })
+        }
+      }
+    } finally {
+      const requestDuration = new Date().getTime() - startTime
+
+      // delay displaying result to prevent flashing
+      setTimeout(() => {
+        setSending(false)
+      }, 400 - requestDuration)
+    }
+  }
+
+  return (
+    <div className={classes.formContainer}>
+      {success ? (
+        <div className={classes.center}>
+          <FontAwesomeIcon icon={faCheckCircle}/> Message sent!
+        </div>
+      ) : sending ? (
+        <div className={classes.center}>
+          <CircularProgress color="secondary"/>
+          <div>Sending...</div>
+        </div>
+      ) : (
+        <form onSubmit={sendMessage}>
+          <Typography variant="h5">Get in Touch</Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <TextField
+                label="Name"
+                name="name"
+                error={!!nameField.error}
+                value={nameField.value}
+                helperText={nameField.error}
+                onChange={onChangeField}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Email"
+                name="email"
+                error={!!emailField.error}
+                value={emailField.value}
+                helperText={emailField.error}
+                onChange={onChangeField}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Message"
+                name="message"
+                error={!!messageField.error}
+                value={messageField.value}
+                helperText={messageField.error}
+                onChange={onChangeField}
+                multiline
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                color="secondary"
+                type="submit"
+              >Send</Button>
+            </Grid>
           </Grid>
-        ) : null}
-        <Grid item xs={12}>
-          <TextField
-            label="Name"
-            name="name"
-            onChange={updateField}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Email"
-            name="email"
-            onChange={updateField}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Message"
-            name="message"
-            onChange={updateField}
-            multiline
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="secondary"
-            type="submit"
-          >Send</Button>
-        </Grid>
-      </Grid>
-    </form>
+        </form>
+      )}
+    </div>
   )
 }
 
