@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import entities from 'entities'
 import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
 import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import dayjs from 'dayjs'
@@ -53,7 +54,7 @@ const Post = ({ data }) => {
       <article>
         <header className={classes.header}>
           <Grid container spacing={3}>
-            <Grid item sm={6}>
+            <Grid item xs={12} lg={6}>
               <Typography
                 variant="h1"
                 className={classes.title}
@@ -64,7 +65,7 @@ const Post = ({ data }) => {
               </address>
               <p className={classes.description} dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}></p>
             </Grid>
-            <Grid item sm={6}>
+            <Grid item xs={12} lg={6}>
               {!post.featured_media ? '' : (
                 <FeaturedImage className={classes.featuredImage} src={post.featured_media.localFile.childImageSharp.original.src} />
               )}
