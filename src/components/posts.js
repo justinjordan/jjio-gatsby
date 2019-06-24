@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql, StaticQuery } from 'gatsby'
 import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
 import { makeStyles } from '@material-ui/styles'
 
 import PostCard from './post-card'
@@ -52,7 +53,7 @@ const Posts = () => {
           const post = edge.node
 
           cards.push(
-            <Grid item sm={12} lg={6} key={post.id}>
+            <Grid item xs={12} md={6} key={post.id}>
               <PostCard post={post} />
             </Grid>
           )

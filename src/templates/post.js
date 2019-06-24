@@ -2,7 +2,6 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import entities from 'entities'
 import Grid from '@material-ui/core/Grid'
-import Hidden from '@material-ui/core/Hidden'
 import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import dayjs from 'dayjs'
@@ -18,6 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     margin: '1.8rem 0 1rem 0',
+    fontFamily: 'Merriweather, serif',
     fontWeight: 400,
     lineHeight: '100%',
   },

@@ -14,11 +14,12 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     minHeight: '300px',
   },
-  center: {
+  statusMessage: {
     position: 'absolute',
     left: '50%',
     top: '50%',
     transform: 'translate(-50%, -50%)',
+    fontSize: '14pt',
   },
 }))
 
@@ -99,11 +100,11 @@ const ContactForm = () => {
   return (
     <div className={classes.formContainer}>
       {success ? (
-        <div className={classes.center}>
+        <div className={classes.statusMessage}>
           <FontAwesomeIcon icon={faCheckCircle}/> Message sent!
         </div>
       ) : sending ? (
-        <div className={classes.center}>
+        <div className={classes.statusMessage}>
           <CircularProgress color="secondary"/>
           <div>Sending...</div>
         </div>
