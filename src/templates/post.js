@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import entities from 'entities'
 import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
 import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import dayjs from 'dayjs'
@@ -9,6 +10,7 @@ import dayjs from 'dayjs'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import FeaturedImage from '../components/featured-image'
+import JumboFeaturedImage from '../components/jumbo-featured-image'
 import WordpressContent from '../components/wordpress-content'
 
 const useStyles = makeStyles(theme => ({
@@ -30,13 +32,6 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'Open Sans, sans-serif',
     lineHeight: '120%',
   },
-  featuredImage: {
-    width: '100%',
-    height: '50vh',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-  },
 }))
 
 const Post = ({ data }) => {
@@ -53,6 +48,11 @@ const Post = ({ data }) => {
       />
       <article>
         <header className={classes.header}>
+          <Hidden lgUp>
+            <JumboFeaturedImage
+              src={post.featured_media.localFile.childImageSharp.original.src}
+            />
+          </Hidden>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={6}>
               <Typography
@@ -65,11 +65,13 @@ const Post = ({ data }) => {
               </address>
               <p className={classes.description} dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}></p>
             </Grid>
-            <Grid item xs={12} lg={6}>
-              {!post.featured_media ? '' : (
-                <FeaturedImage className={classes.featuredImage} src={post.featured_media.localFile.childImageSharp.original.src} />
-              )}
-            </Grid>
+            <Hidden mdDown>
+              <Grid item lg={6}>
+                {!post.featured_media ? '' : (
+                  <FeaturedImage src={post.featured_media.localFile.childImageSharp.original.src} />
+                )}
+              </Grid>
+            </Hidden>
           </Grid>
         </header>
         <WordpressContent content={post.content} />
