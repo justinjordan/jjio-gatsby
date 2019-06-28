@@ -33,8 +33,6 @@ const Layout = ({ children }) => (
         <Header siteTitle={data.site.siteMetadata.title}/>
         <Container maxWidth="lg">
           <main>{children}</main>
-          <footer>
-          </footer>
         </Container>
         <Footer/>
       </ThemeProvider>
