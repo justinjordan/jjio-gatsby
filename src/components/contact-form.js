@@ -38,6 +38,10 @@ const ContactForm = () => {
     value: '',
     error: null,
   })
+  const [websiteField, setWebsiteField] = useState({
+    value: '',
+    error: null,
+  })
   const [sending, setSending] = useState(false)
   const [success, setSuccess] = useState(false)
 
@@ -45,11 +49,13 @@ const ContactForm = () => {
     name: nameField,
     email: emailField,
     message: messageField,
+    website: websiteField,
   }
   const setters = {
     name: setNameField,
     email: setEmailField,
     message: setMessageField,
+    website: setWebsiteField,
   }
 
   const onChangeField = event => {
@@ -69,11 +75,14 @@ const ContactForm = () => {
     try {
       setSending(true)
 
-      const response = await axios.post(`${process.env.API_DOMAIN}/send-mail`, {
-        name: nameField.value,
-        email: emailField.value,
-        message: messageField.value,
-      })
+      // only submit if honeypot (website) field is empty
+      if (!websiteField.value) {
+        const response = await axios.post(`${process.env.API_DOMAIN}/send-mail`, {
+          name: nameField.value,
+          email: emailField.value,
+          message: messageField.value,
+        })
+      }
 
       setSuccess(true)
     } catch (err) {
@@ -130,6 +139,17 @@ const ContactForm = () => {
                 error={!!emailField.error}
                 value={emailField.value}
                 helperText={emailField.error}
+                onChange={onChangeField}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} style={{ display: 'none' }}>
+              <TextField
+                label="Website"
+                name="website"
+                error={!!websiteField.error}
+                value={websiteField.value}
+                helperText={websiteField.error}
                 onChange={onChangeField}
                 fullWidth
               />
