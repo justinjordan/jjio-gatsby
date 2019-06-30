@@ -46,4 +46,15 @@
             color: #757575;
         }
     }
+
+    pre {
+        padding: 1rem;
+        background-color: #000000;
+        border-radius: 5px;
+        color: #00ff00;
+        max-width: 65ch;
+        font-family: monospace;
+        font-size: 1.3rem;
+        font-weight: 100;
+    }
 }

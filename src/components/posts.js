@@ -52,7 +52,8 @@ const Posts = () => {
         for (let edge of data.allWordpressPost.edges) {
           const post = edge.node
 
-          cards.push(
+          // add post to beginning
+          cards.unshift(
             <Grid item xs={12} md={6} key={post.id}>
               <PostCard post={post} />
             </Grid>

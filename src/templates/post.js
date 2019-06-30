@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import dayjs from 'dayjs'
 
+import Breadcrumbs from '../components/breadcrumbs'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import FeaturedImage from '../components/featured-image'
@@ -39,6 +40,13 @@ const Post = ({ data }) => {
   const classes = useStyles()
 
   const prettyDate = dayjs(post.date).format('MMMM D, YYYY')
+  const featuredImage = post.featured_media.localFile.childImageSharp.original.src
+  const breadcrumbs = [{
+    label: 'Home',
+    path: '/',
+  }, {
+    label: post.title,
+  }]
   
   return (
     <Layout>
@@ -50,11 +58,12 @@ const Post = ({ data }) => {
         <header className={classes.header}>
           <Hidden lgUp>
             <JumboFeaturedImage
-              src={post.featured_media.localFile.childImageSharp.original.src}
+              src={featuredImage}
             />
           </Hidden>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={6}>
+              <Breadcrumbs pages={breadcrumbs} />
               <Typography
                 variant="h1"
                 className={classes.title}
@@ -85,6 +94,7 @@ export default Post
 export const pageQuery = graphql`
   query PostById($id: String!) {
     wordpressPost(id: { eq: $id }) {
+      path
       title
       content
       date
