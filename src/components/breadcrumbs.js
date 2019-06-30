@@ -8,8 +8,12 @@ const useStyles = makeStyles(theme => ({
   root: {
     margin: '1rem 0',
   },
+  label: {
+    fontFamily: 'Open Sans, sans-serif',
+    textDecoration: 'none',
+  },
   link: {
-    fontFamily: 'OpenSans, sans-serif',
+    fontFamily: 'Open Sans, sans-serif',
     textDecoration: 'none',
     transition: 'color 200ms ease',
     '&:hover': {
@@ -37,6 +41,7 @@ export default ({ pages }) => {
     } else {
       links.push(
         <span
+          className={classes.label}
           dangerouslySetInnerHTML={{ __html: label }}
         />
       )
