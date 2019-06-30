@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import dayjs from 'dayjs'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
+import CardFooter from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 
@@ -24,6 +25,9 @@ const PostCard = ({ post }) => {
       elevation={depth}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
+      style={{
+        height: '100%',
+      }}
     >
       <Link to={post.path} style={{
         color: '#000000',
@@ -43,6 +47,10 @@ const PostCard = ({ post }) => {
             gutterBottom
             variant="h5"
             component="h2"
+            style={{
+              fontFamily: 'Merriweather, serif',
+              fontWeight: 400,
+            }}
             dangerouslySetInnerHTML={{ __html: post.title }}
           />
           <Typography
@@ -58,6 +66,7 @@ const PostCard = ({ post }) => {
             dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}
           />
         </CardContent>
+        <CardFooter/>
       </Link>
     </Card>
   )
