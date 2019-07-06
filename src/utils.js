@@ -23,6 +23,10 @@ export const truncate = (input, limit) => {
  * @return {string} Clean text
  */
 export const htmlDecode = (input) => {
+  if (typeof document === 'undefined') {
+    return input
+  }
+
   const el = document.createElement("div");
   el.innerHTML = input;
   return el.innerText;
