@@ -18,7 +18,12 @@ const Posts = () => {
     <StaticQuery
       query={graphql`
         query {
-          allWordpressPost {
+          allWordpressPost(
+            sort: {
+              fields: [date]
+              order: DESC
+            }
+          ) {
             edges {
               node {
                 id
@@ -52,7 +57,7 @@ const Posts = () => {
           const post = edge.node
 
           // add post to beginning
-          cards.unshift(
+          cards.push(
             <Grid item xs={12} md={6} key={post.id}>
               <PostCard post={post} />
             </Grid>
