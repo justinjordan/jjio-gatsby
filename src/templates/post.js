@@ -13,6 +13,7 @@ import SEO from '../components/seo'
 import FeaturedImage from '../components/featured-image'
 import JumboFeaturedImage from '../components/jumbo-featured-image'
 import WordpressContent from '../components/wordpress-content'
+import ShareButtons from '../components/share-buttons'
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -72,6 +73,7 @@ const Post = ({ data }) => {
               <address className={classes.author}>
                 Posted by <span rel="author">{post.author.name}</span> on <time dateTime={post.date}>{prettyDate}</time>
               </address>
+              <ShareButtons pageUrl={post.link}/>
               <p className={classes.description} dangerouslySetInnerHTML={{ __html: post.yoast.metadesc }}></p>
             </Grid>
             <Hidden mdDown>
@@ -98,6 +100,7 @@ export const pageQuery = graphql`
       title
       content
       date
+      link
       author {
         name
       }
