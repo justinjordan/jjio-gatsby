@@ -27,7 +27,8 @@ export default ({ pages }) => {
   const classes = useStyles()
 
   const links = []
-  for (let page of pages) {
+  for (let i in pages) {
+    let page = pages[i]
     const label = truncate(htmlDecode(page.label), 5)
 
     if (page.path) {
@@ -36,6 +37,7 @@ export default ({ pages }) => {
           className={classes.link}
           to={page.path}
           dangerouslySetInnerHTML={{ __html: label }}
+          key={'breadcrumb-' + i}
         />
       )
     } else {
@@ -43,6 +45,7 @@ export default ({ pages }) => {
         <span
           className={classes.label}
           dangerouslySetInnerHTML={{ __html: label }}
+          key={'breadcrumb-' + i}
         />
       )
     }

@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     margin: '1.8rem 0 1rem 0',
     fontFamily: 'Merriweather, serif',
     fontWeight: 400,
-    lineHeight: '100%',
+    lineHeight: '120%',
   },
   author: {
     fontSize: '1.2rem',
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Post = ({ data }) => {
-  const { wordpressPost: post } = data
+  const { wordpressPost: post, wordpressSiteMetadata: metadata } = data
   const classes = useStyles()
 
   const prettyDate = dayjs(post.date).format('MMMM D, YYYY')
@@ -52,7 +52,9 @@ const Post = ({ data }) => {
     <Layout>
       <SEO
         title={entities.decodeHTML(post.title)}
-        description={post.yoast.metadesc}
+        description={post.yoast.metadesc||metadata.description}
+        keywords={post.yoast.metakeywords.split(',')}
+        image={metadata.home + featuredImage}
       />
       <article>
         <header className={classes.header}>
@@ -76,8 +78,8 @@ const Post = ({ data }) => {
             </Grid>
             <Hidden mdDown>
               <Grid item lg={6}>
-                {!post.featured_media ? '' : (
-                  <FeaturedImage src={post.featured_media.localFile.childImageSharp.original.src} />
+                {!featuredImage ? '' : (
+                  <FeaturedImage src={featuredImage} />
                 )}
               </Grid>
             </Hidden>
@@ -93,6 +95,11 @@ export default Post
 
 export const pageQuery = graphql`
   query PostById($id: String!) {
+    wordpressSiteMetadata {
+      home
+      name
+      description
+    }
     wordpressPost(id: { eq: $id }) {
       path
       title
@@ -104,6 +111,7 @@ export const pageQuery = graphql`
       }
       yoast {
         metadesc
+        metakeywords
       }
       featured_media {
         localFile {

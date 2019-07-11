@@ -12,3 +12,12 @@ const IndexPage = ({ data }) => (
 )
 
 export default IndexPage
+
+export const pageQuery = graphql`
+  query {
+    wordpressSiteMetadata {
+      name
+      description
+    }
+  }
+`

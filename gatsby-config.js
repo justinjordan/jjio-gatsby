@@ -66,6 +66,15 @@ module.exports = {
         protocol: `https`,
         hostingWPCOM: false,
         useACF: true,
+        plugins: [
+          {
+            resolve: `gatsby-wordpress-inline-images`,
+            options: {
+              baseUrl: `${process.env.WORDPRESS_DOMAIN}`,
+              protocol: `https`
+            }
+          }
+        ],
       },
     },
     {
