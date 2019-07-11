@@ -4,6 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
+    appDomain: `${process.env.APP_DOMAIN}`,
     title: `JustinJordan.io`,
     description: `Justin Jordan's blog about web development and what's new in tech.`,
     author: `Justin Jordan`,

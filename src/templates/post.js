@@ -36,10 +36,10 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Post = ({ data, location }) => {
-  const { wordpressPost: post, wordpressSiteMetadata: metadata } = data
+  const { wordpressPost: post, wordpressSiteMetadata: metadata, site } = data
   const classes = useStyles()
 
-  const domain = `${location.protocol}//${location.host}`
+  const domain = site.siteMetadata.appDomain
   const prettyDate = dayjs(post.date).format('MMMM D, YYYY')
   const featuredImage = post.featured_media.localFile.childImageSharp.original.src
   const breadcrumbs = [{
@@ -96,6 +96,11 @@ export default Post
 
 export const pageQuery = graphql`
   query PostById($id: String!) {
+    site {
+      siteMetadata {
+        appDomain
+      }
+    }
     wordpressSiteMetadata {
       home
       name
