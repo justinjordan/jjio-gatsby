@@ -39,6 +39,7 @@ const Post = ({ data }) => {
   const { wordpressPost: post, wordpressSiteMetadata: metadata } = data
   const classes = useStyles()
 
+  const domain = `${window.location.protocol}//${window.location.host}`
   const prettyDate = dayjs(post.date).format('MMMM D, YYYY')
   const featuredImage = post.featured_media.localFile.childImageSharp.original.src
   const breadcrumbs = [{
@@ -54,7 +55,7 @@ const Post = ({ data }) => {
         title={entities.decodeHTML(post.title)}
         description={post.yoast.metadesc||metadata.description}
         keywords={post.yoast.metakeywords.split(',')}
-        image={metadata.home + featuredImage}
+        image={domain + featuredImage}
       />
       <article>
         <header className={classes.header}>
