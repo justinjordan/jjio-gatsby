@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/styles'
 
 import ContactForm from './contact-form'
 import Social from './social'
+import { Z_BLOCK } from 'zlib';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,6 +19,14 @@ const useStyles = makeStyles(theme => ({
   },
   row2: {
     backgroundColor: theme.palette.primary.dark,
+    '&::after': {
+      content: "''",
+      display: 'block',
+      width: '100%',
+      height: '100vh',
+      position: 'fixed',
+      backgroundColor: theme.palette.primary.dark,
+    },
   },
 }))
 
