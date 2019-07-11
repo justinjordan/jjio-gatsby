@@ -35,11 +35,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Post = ({ data }) => {
+const Post = ({ data, location }) => {
   const { wordpressPost: post, wordpressSiteMetadata: metadata } = data
   const classes = useStyles()
 
-  const domain = `${window.location.protocol}//${window.location.host}`
+  const domain = `${location.protocol}//${location.host}`
   const prettyDate = dayjs(post.date).format('MMMM D, YYYY')
   const featuredImage = post.featured_media.localFile.childImageSharp.original.src
   const breadcrumbs = [{
