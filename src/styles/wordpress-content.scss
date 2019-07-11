@@ -47,7 +47,8 @@
         }
     }
 
-    pre {
+    .wp-block-code {
+        overflow: scroll;
         padding: 1rem;
         background-color: #000000;
         border-radius: 5px;
