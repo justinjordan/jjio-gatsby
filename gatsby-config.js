@@ -4,6 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
+    siteUrl: `https://justinjordan.io`,
     appDomain: `${process.env.APP_DOMAIN}`,
     title: `JustinJordan.io`,
     description: `Justin Jordan's blog about web development and what's new in tech.`,
@@ -102,6 +103,7 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-sitemap`,
     `gatsby-plugin-offline`,
   ],
 }
