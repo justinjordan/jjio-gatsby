@@ -31,3 +31,24 @@ export const htmlDecode = (input) => {
   el.innerHTML = input;
   return el.innerText;
 }
+
+/**
+ * Gets property value without throwing error on undefined
+ * @param {object} obj  Object containing property
+ * @param {string} prop String with dot separated property address
+ * @return {mixed} Returns property value, or null
+ */
+export const safeGetProp = (obj, prop) => {
+  const parts = prop.split('.')
+  let currentObj = obj
+
+  for (let part of parts) {
+    if (!part || typeof currentObj !== 'object' || !currentObj[part]) {
+      return null
+    }
+
+    currentObj = currentObj[part]
+  }
+
+  return currentObj
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLinkedin, faGithub, faSoundcloud } from '@fortawesome/free-brands-svg-icons'
+import { faLinkedin, faGithub, faSoundcloud, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { makeStyles } from '@material-ui/styles'
 
 const iconSize = "2x"
@@ -27,6 +27,9 @@ const Social = () => {
       </a>
       <a className={classes.link} href="https://github.com/sXule">
         <FontAwesomeIcon icon={faGithub} size={iconSize} />
+      </a>
+      <a className={classes.link} href="https://www.instagram.com/justin.jordan_">
+        <FontAwesomeIcon icon={faInstagram} size={iconSize} />
       </a>
       <a className={classes.link} href="https://soundcloud.com/realfataltransmission">
         <FontAwesomeIcon icon={faSoundcloud} size={iconSize} />

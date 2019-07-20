@@ -13,6 +13,7 @@ import SEO from '../components/seo'
 import FeaturedImage from '../components/featured-image'
 import JumboFeaturedImage from '../components/jumbo-featured-image'
 import WordpressContent from '../components/wordpress-content'
+import { safeGetProp } from '../utils'
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -41,7 +42,7 @@ const Post = ({ data, location }) => {
 
   const domain = site.siteMetadata.appDomain
   const prettyDate = dayjs(post.date).format('MMMM D, YYYY')
-  const featuredImage = post.featured_media.localFile.childImageSharp.original.src
+  const featuredImage = safeGetProp(post, 'featured_media.localFile.childImageSharp.original.src')
   const breadcrumbs = [{
     label: 'Home',
     path: '/',
