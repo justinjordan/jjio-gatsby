@@ -5,9 +5,9 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 
+import BreaksToParagraphs from './breaks-to-paragraphs'
 import ContactForm from './contact-form'
 import Social from './social'
-import { convertLineBreaks } from '../utils'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,7 +41,9 @@ const Footer = ({ bio }) => {
           <Grid container spacing={3}>
             <Grid item sm={12} lg={6}>
               <Typography variant="h5">About Me</Typography>
-              <Typography variant="body2" dangerouslySetInnerHTML={{ __html: convertLineBreaks(bio) }}/>
+              <Typography variant="body2">
+                <BreaksToParagraphs content={bio}/>
+              </Typography>
             </Grid>
             <Grid item sm={12} lg={1}/>
             <Grid item sm={12} lg={5}>

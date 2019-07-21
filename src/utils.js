@@ -1,22 +1,4 @@
-/**
- * Splits input into paragraphs using line breaks
- * @param {string} input
- * @return {string} Returns HTML
- */
-export const convertLineBreaks = (input) => {
-  let paragraphs = input.split(/\r\n|\n|\r/)
-
-  let output = ''
-  for (let paragraph of paragraphs) {
-    if (!paragraph) {
-      continue
-    }
-
-    output += '<p>' + paragraph + '</p>'
-  }
-
-  return output
-}
+import React from 'react'
 
 /**
  * Truncates a sentence with elipses
