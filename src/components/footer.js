@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, StaticQuery } from 'gatsby'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -6,7 +7,7 @@ import { makeStyles } from '@material-ui/styles'
 
 import ContactForm from './contact-form'
 import Social from './social'
-import { Z_BLOCK } from 'zlib';
+import { convertLineBreaks } from '../utils'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Footer = () => {
+const Footer = ({ bio }) => {
   const classes = useStyles()
 
   return (
@@ -40,7 +41,7 @@ const Footer = () => {
           <Grid container spacing={3}>
             <Grid item sm={12} lg={6}>
               <Typography variant="h5">About Me</Typography>
-              <Typography variant="body2">I'm a professional web developer, and have been coding for fun since I was a kid, so most of my life now. Really, I just want to create things in as many ways as possible. My hobbies include photography, writing, music production, and coding... Did I mention coding?</Typography>
+              <Typography variant="body2" dangerouslySetInnerHTML={{ __html: convertLineBreaks(bio) }}/>
             </Grid>
             <Grid item sm={12} lg={1}/>
             <Grid item sm={12} lg={5}>

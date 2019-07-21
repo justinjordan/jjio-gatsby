@@ -12,10 +12,14 @@
     h5 { font-size: 1.8rem; }
     h6 { font-size: 1.6rem; }
 
-    p {
+    p, li {
         max-width: 65ch;
         font-size: 1.3rem;
         font-weight: 100;
+
+        code {
+            background-color: #dddddd;
+        }
     }
 
     a {

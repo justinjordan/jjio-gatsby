@@ -25,16 +25,21 @@ const Layout = ({ children }) => (
             title
           }
         }
+        wordpressWpUsers(slug: {
+          eq: "justin"
+        }) {
+          description
+        }
       }
     `}
-    render={data => (
+    render={({ site, wordpressWpUsers: user }) => (
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Header siteTitle={data.site.siteMetadata.title}/>
+        <Header siteTitle={site.siteMetadata.title}/>
         <Container maxWidth="lg">
           <main>{children}</main>
         </Container>
-        <Footer/>
+        <Footer bio={user.description}/>
       </ThemeProvider>
     )}
   />
