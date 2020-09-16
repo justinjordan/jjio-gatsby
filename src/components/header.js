@@ -5,17 +5,23 @@ import Container from '@material-ui/core/Container'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { makeStyles }  from '@material-ui/styles'
+import logo from '../images/logo.png'
 
 const useStyles = makeStyles({
   logo: {
     margin: 0,
   },
   logoLink: {
+    display: 'flex',
+    margin: '18px 0',
     textDecoration: `none`,
     fontSize: '2.1rem',
     fontFamily: 'Pacifico, cursive',
     fontWeight: 400,
     color: '#000',
+    '& img': {
+      height: '36px',
+    },
   },
   toolbar: {
     backgroundColor: '#fff',
@@ -34,7 +40,7 @@ const Header = ({ siteTitle }) => {
               to="/"
               alt="Go to JustinJordan.io Home"
               className={classes.logoLink}
-            >{siteTitle}</Link>
+            ><img src={logo} /></Link>
           </h1>
         </Container>
       </Toolbar>

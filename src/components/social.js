@@ -25,7 +25,7 @@ const Social = () => {
       <a className={classes.link} href="https://www.linkedin.com/in/justintjordan/">
         <FontAwesomeIcon icon={faLinkedin} size={iconSize} />
       </a>
-      <a className={classes.link} href="https://github.com/sXule">
+      <a className={classes.link} href="https://github.com/justinjordan">
         <FontAwesomeIcon icon={faGithub} size={iconSize} />
       </a>
       <a className={classes.link} href="https://www.instagram.com/justin.jordan_">
