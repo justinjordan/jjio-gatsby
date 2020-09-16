@@ -13,14 +13,20 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
+      resolve: `gatsby-plugin-env-variables`,
+      options: {
+        allowList: [`API_DOMAIN`],
+      },
+    },
+    {
       resolve: `gatsby-plugin-google-tagmanager`,
       options: {
         id: `${process.env.GTM_ID}`,
-  
+
         // Include GTM in development.
         // Defaults to false meaning GTM will only be loaded in production.
         includeInDevelopment: false,
-  
+
         // Specify optional GTM environment details.
         gtmAuth: `${process.env.GTM_AUTH}`,
         gtmPreview: `${process.env.GTM_PREVIEW}`,
@@ -73,9 +79,9 @@ module.exports = {
             resolve: `gatsby-wordpress-inline-images`,
             options: {
               baseUrl: `${process.env.WORDPRESS_DOMAIN}`,
-              protocol: `https`
-            }
-          }
+              protocol: `https`,
+            },
+          },
         ],
       },
     },
@@ -94,11 +100,11 @@ module.exports = {
           },
           {
             family: `Merriweather`,
-            variants: [`300`, `400`]
+            variants: [`300`, `400`],
           },
           {
             family: `Open Sans`,
-            variants: [`300`, `400`]
+            variants: [`300`, `400`],
           },
         ],
       },
