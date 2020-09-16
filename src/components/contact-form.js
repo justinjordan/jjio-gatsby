@@ -24,6 +24,8 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const ContactForm = () => {
+  console.log(process.env);
+
   const classes = useStyles()
 
   const [nameField, setNameField] = useState({
