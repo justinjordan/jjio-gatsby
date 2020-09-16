@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 const Footer = ({ bio }) => {
   const classes = useStyles()
+  const year = new Date().getFullYear()
 
   return (
     <footer className={classes.root}>
@@ -56,7 +57,7 @@ const Footer = ({ bio }) => {
         <Container maxWidth="lg">
           <Grid container spacing={3}>
             <Grid item sm={12} lg={6}>
-              &copy; Copyright by Justin Jordan 2019
+              &copy; Copyright by Justin Jordan {year}
             </Grid>
             <Grid item sm={12} lg={6}>
               <Social/>
