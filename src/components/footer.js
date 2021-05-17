@@ -1,12 +1,11 @@
 import React from 'react'
-import { graphql, StaticQuery } from 'gatsby'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
+import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 
 import BreaksToParagraphs from './breaks-to-paragraphs'
-import ContactForm from './contact-form'
 import Social from './social'
 
 const useStyles = makeStyles(theme => ({
@@ -45,10 +44,9 @@ const Footer = ({ bio }) => {
               <Typography variant="body2">
                 <BreaksToParagraphs content={bio}/>
               </Typography>
-            </Grid>
-            <Grid item sm={12} lg={1}/>
-            <Grid item sm={12} lg={5}>
-              <ContactForm/>
+              <Typography>
+                Send inquiries to <Link color="body2" href="mailto:justin@justinjordan.io">justin@justinjordan.io</Link>
+              </Typography>
             </Grid>
           </Grid>
         </Container>
