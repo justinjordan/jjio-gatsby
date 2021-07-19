@@ -28,7 +28,7 @@
     "gatsby-plugin-sharp": "^2.0.37",
     "gatsby-plugin-sitemap": "^2.2.3",
     "gatsby-source-filesystem": "^2.0.36",
-    "gatsby-source-wordpress": "^3.0.61",
+    "gatsby-source-wordpress": "^4.0.8",
     "gatsby-transformer-sharp": "^2.1.19",
     "gatsby-wordpress-inline-images": "^1.0.0",
     "node-sass": "^4.12.0",
